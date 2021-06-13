@@ -22,7 +22,7 @@ type Value interface {
 	Len() int
 }
 
-//New is the Constructer of Cache
+//New is the Constructor of Cache
 func New(maxBytes int64, callback func(string, Value)) *Cache {
 	return &Cache{
 		maxBytes: maxBytes,
