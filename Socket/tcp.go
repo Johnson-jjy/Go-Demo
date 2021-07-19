@@ -1,6 +1,8 @@
+// 通过向网络主机发送 HTTP Head 请求，读取网络主机返回的信息
 package main
 
 import (
+	"JZ-cache/Socket/utility"
 	"bytes"
 	"fmt"
 	"io"
@@ -20,27 +22,20 @@ func main() {
 	// 建立网络连接
 	conn, err := net.Dial("tcp", service)
 	// 连接出错则打印错误消息并退出程序
-	checkError(err)
+	utility.CheckError(err)
 
 	// 调用返回的连接对象提供的Write方法发送请求
 	_, err = conn.Write([]byte("HEAD/ HTTP/1.0\r\n\r\n"))
-	checkError(err)
+	utility.CheckError(err)
 
 	// 通过连接对象提供的Read方法读取所有响应数据
 	result, err := readFully(conn)
-	checkError(err)
+	utility.CheckError(err)
 
 	// 打印响应数据
 	fmt.Println(string(result))
 
 	os.Exit(0)
-}
-
-func checkError(err error) {
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal error: %s", err.Error())
-		os.Exit(1)
-	}
 }
 
 func readFully(conn net.Conn) ([]byte, error) {
