@@ -1,4 +1,4 @@
-package JZ_cache
+package Cache
 
 import (
 	"fmt"

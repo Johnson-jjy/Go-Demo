@@ -1,6 +1,6 @@
 package lru
 
-import  "container/list"
+import "container/list"
 
 //1.核心数据结构
 //Cache is a LRU cache. It is not safe for concurrent access.
@@ -13,7 +13,7 @@ type Cache struct {
 }
 
 type entry struct {
-	key string
+	key   string
 	value Value
 }
 

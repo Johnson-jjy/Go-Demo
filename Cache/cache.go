@@ -1,7 +1,7 @@
-package JZ_cache
+package Cache
 
 import (
-	"JZ-cache/lru"
+	"JZ-cache/Cache/lru"
 	"sync"
 )
 

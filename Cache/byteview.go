@@ -1,4 +1,4 @@
-package JZ_cache
+package Cache
 
 //A ByteView holds an immutable view of bytes
 type ByteView struct {

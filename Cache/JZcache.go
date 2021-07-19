@@ -1,4 +1,4 @@
-package JZ_cache
+package Cache
 
 import (
 	"fmt"
@@ -21,9 +21,9 @@ func (f GetterFunc) Get(key string) ([]byte, error) {
 
 //A Group is a cache namespace and associated data loaded spread over
 type Group struct {
-	name		string
-	getter 		Getter
-	mainCache	cache
+	name      string
+	getter    Getter
+	mainCache cache
 }
 
 var (
@@ -39,8 +39,8 @@ func NewGroup(name string, cacheBytes int64, getter Getter) *Group {
 	mu.Lock()
 	defer mu.Unlock()
 	g := &Group{
-		name:	name,
-		getter: getter,
+		name:      name,
+		getter:    getter,
 		mainCache: cache{cacheBytes: cacheBytes},
 	}
 	groups[name] = g

@@ -11,15 +11,15 @@ type Hash func(data []byte) uint32
 
 //Map constains all hashed keys
 type Map struct {
-	hash Hash
+	hash     Hash
 	replicas int
-	keys []int //Sorted
-	hashMap map[int]string
+	keys     []int //Sorted
+	hashMap  map[int]string
 }
 
 //New creates a Map instance
 func New(replicas int, fn Hash) *Map {
-	m := &Map {
+	m := &Map{
 		replicas: replicas,
 		hash: fn,
 		hashMap: make(map[int]string),
