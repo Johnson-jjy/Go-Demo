@@ -2,12 +2,12 @@
 package main
 
 import (
+	"Go-Demo/net/utility"
 	"bufio"
 	"fmt"
 	"net"
 	"os"
 	"strings"
-	"JZ-cache/Socket/utility"
 )
 
 func main() {

@@ -2,7 +2,7 @@
 package main
 
 import (
-	"JZ-cache/Socket/utility"
+	"Go-Demo/net/utility"
 	"bytes"
 	"fmt"
 	"io"
