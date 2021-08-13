@@ -1,7 +1,7 @@
 package log
 
 import (
-	"Go-Demo/loadgen/lib/log/base"
+	"Go-Demo/helper/log/base"
 	"os"
 	"testing"
 	)

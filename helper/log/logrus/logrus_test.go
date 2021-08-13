@@ -1,11 +1,11 @@
 package logrus
 
 import (
+	"Go-Demo/helper/log/base"
+	"Go-Demo/helper/log/field"
 	"os"
 	"testing"
 
-	"gopcp.v2/helper/log/base"
-	"gopcp.v2/helper/log/field"
 )
 
 func TestLogrusLogger(t *testing.T) {

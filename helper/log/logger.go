@@ -1,8 +1,8 @@
 package log
 
 import (
-	"Go-Demo/loadgen/lib/log/base"
-	"Go-Demo/loadgen/lib/log/logrus"
+	"Go-Demo/helper/log/base"
+	"Go-Demo/helper/log/logrus"
 	"fmt"
 	"io"
 	"os"
