@@ -70,6 +70,45 @@ func (gen *myGenerator) init() error {
 	return nil
 }
 
+// printIgnoredResult 打印被忽略的结果。
+func (gen *myGenerator) printIgnoredResult(result *lib.CallResult, cause string) {
+	resultMsg := fmt.Sprintf(
+		"ID=%d, Code=%d, Msg=%s, Elapse=%v",
+		result.ID, result.Code, result.Msg, result.Elapse)
+	logger.Warnf("Ignored result: %s. (cause: %s)\n", resultMsg, cause)
+}
+
+
+// prepareStop 用于为停止载荷发生器做准备.
+func (gen *myGenerator) prepareToStop(ctxError error) {
+	logger.Infof("Prepare to stop load generator (cause: %s)...", ctxError)
+	atomic.CompareAndSwapUint32(&gen.status, lib.STATUS_STARTED, lib.STATUS_STOPPING)
+	logger.Infof("Closing result channel...")
+	close(gen.resultCh)
+	atomic.StoreUint32(&gen.status, lib.STATUS_STOPPED)
+}
+
+// genLoad 会产生载荷并向承受方发送.
+func (gen *myGenerator) genLoad(throttle <-chan time.Time) {
+	for { // 周期的长短由节流阀控制
+		select {
+		case <-gen.ctx.Done():
+			gen.prepareToStop(gen.ctx.Err())
+			return
+		default:
+		}
+		gen.asyncCall()
+		if gen.lps > 0 { // 此时节流阀有效并需要使用
+			select {
+			case <-throttle: // 等待节流阀的到期通知 -> 生成下一个载荷
+			case <-gen.ctx.Done():
+				gen.prepareToStop(gen.ctx.Err())
+				return
+			}
+		}
+	}
+}
+
 // Start 会启动载荷发生器
 func (gen *myGenerator) Start() bool {
 	logger.Infoln("Starting load generator...")
