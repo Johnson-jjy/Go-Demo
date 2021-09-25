@@ -37,7 +37,7 @@ func NewConcurrentMap(concurrency int, pairRedistributor PairRedistributor) (Con
 		return nil, newIllegalParameterError("concurrency is too small")
 	}
 	if concurrency > MAX_CONCURRENCY {
-		return nil, NewIllegalParameterError("concurrency is too large")
+		return nil, newIllegalParameterError("concurrency is too large")
 	}
 	cmap := &myConcurrentMap{}
 	cmap.concurrency = concurrency
@@ -49,7 +49,7 @@ func NewConcurrentMap(concurrency int, pairRedistributor PairRedistributor) (Con
 	return cmap, nil
 }
 
-func (cmap *myConcurrentMap) Concurrnecy() int {
+func (cmap *myConcurrentMap) Concurrency() int {
 	return cmap.concurrency
 }
 
@@ -70,16 +70,16 @@ func (cmap *myConcurrentMap) Get(key string) interface{} {
 	keyHash := hash(key)
 	s := cmap.findSegment(keyHash)
 	pair := s.GetWithHash(key, keyHash)
-	if pari == nil {
+	if pair == nil {
 		return nil
 	}
 	return pair.Element()
 }
 
-func (cmap *ConcurrentMap) Delete(key string) bool {
+func (cmap *myConcurrentMap) Delete(key string) bool {
 	s := cmap.findSegment(hash(key))
 	if s.Delete(key) {
-		atomic.AddUint64(&cmp.total, ^uint64(0))
+		atomic.AddUint64(&cmap.total, ^uint64(0))
 		return true
 	}
 	return false

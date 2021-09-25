@@ -62,7 +62,7 @@ func (s *segment) Put(p Pair) (bool, error) {
 	ok, err := b.Put(p, nil)
 	if ok {
 		newTotal := atomic.AddUint64(&s.pairTotal, 1)
-		s.redistribe(newTotal, b.Size())
+		s.redistribute(newTotal, b.Size())
 	}
 	s.lock.Unlock()
 	return ok, err
