@@ -92,4 +92,4 @@ type Pipeline interface {
 }
 
 // ProcessItem 代表用于处理条目的函数的类型。
-type ProcessItem func(item Item) (resutlt Item, err error)
+type ProcessItem func(item Item) (result Item, err error)
