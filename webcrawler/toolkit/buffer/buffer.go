@@ -60,7 +60,7 @@ func (buf *myBuffer) Len() uint32 {
 
 func (buf *myBuffer) Put(datum interface{}) (ok bool, err error) {
 	buf.closingLock.RLock()
-	defer buf.closingLock.Unlock()
+	defer buf.closingLock.RUnlock()
 	if buf.Closed() {
 		return false, ErrClosedBuffer
 	}
