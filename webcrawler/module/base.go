@@ -37,7 +37,7 @@ type Module interface {
 	SetScore(score uint64)
 	// ScoreCalculator 用于获取评分计算器。
 	ScoreCalculator() CalculateScore
-	// CallCount 用于获取当前组件被调用的计数。
+	// CalledCount 用于获取当前组件被调用的计数。
 	CalledCount() uint64
 	// AcceptedCount 用于获取被当前组件接受的调用的计数。
 	// 组件一般会由于超负荷或参数有误而拒绝调用。
